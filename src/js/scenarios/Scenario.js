@@ -11,7 +11,7 @@ export default class Scenario extends Scene {
 
         // arcs
         this.arcs = []
-        this.nArcs = 4
+        this.nArcs = 3
         for (let i = 0; i < this.nArcs; i++) {
             const arc_ = new RotatingArc(
                 this.width / 2,
@@ -24,8 +24,7 @@ export default class Scenario extends Scene {
         }
 
         // debug
-        this.params['line-width'] = 7
-        this.params['line-peit'] = 4
+        this.params['line-width'] = 5
         this.params.speed = 1
         this.params.color = "#ffffff"
         if (this.debug.active) {
@@ -136,16 +135,6 @@ export default class Scenario extends Scene {
             this.drawLine(x_, y_, length_, angle_)
         }
     }
-    drawGradation2() {
-        const nGradation_ = 48
-        for (let i = 0; i < nGradation_; i++) {
-            const angle_ = 2 * Math.PI * i / nGradation_ + Math.PI / 2
-            const x_ = this.width / 2 + (this.mainRadius - this.deltaRadius / 2) * Math.cos(angle_)
-            const y_ = this.height / 2 + (this.mainRadius - this.deltaRadius / 2) * Math.sin(angle_)
-            const length_ = this.deltaRadius * (this.nArcs - 1)
-            this.drawLine(x_, y_, length_, angle_)
-        }
-    }
 
     drawTime() {
         const now = new Date().toLocaleString('en-US', {timeZone: this.debug.timezone});
@@ -178,12 +167,9 @@ export default class Scenario extends Scene {
         this.context.moveTo(0, 0)
         this.context.lineTo(length, 0)
 
-        // draw arrowhead
-        // this.context.moveTo(length - 10, -10)
-        // this.context.lineTo(length, 0)
-        // this.context.lineTo(length - 10, 10)
-
         this.context.stroke()
+        this.context.closePath()
+        this.context.restore()
 
         
     }
